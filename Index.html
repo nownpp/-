@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engagement Celebration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(rgba(255, 235, 239, 0.9), rgba(255, 245, 250, 0.9)), 
+                        url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2073&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .emoji {
+            position: absolute;
+            font-size: 24px;
+            pointer-events: none;
+            animation: fly linear forwards;
+            z-index: 50;
+        }
+        
+        @keyframes fly {
+            to {
+                transform: translate(
+                    calc(100vw * var(--tx)),
+                    calc(100vh * var(--ty))
+                );
+                opacity: 0;
+            }
+        }
+        
+        .falling-decoration {
+            position: fixed;
+            top: -50px;
+            animation: falling linear infinite;
+            z-index: 20;
+            pointer-events: none;
+        }
+        
+        @keyframes falling {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        .ring-spin {
+            animation: spin 15s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .photo-frame {
+            clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+        }
+        
+        .dancing-text {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 0;
+            animation: heartAnimation linear forwards;
+            opacity: 0;
+        }
+        
+        @keyframes heartAnimation {
+            0% { 
+                transform: scale(0.1);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3); 
+                opacity: 0;
+            }
+        }
+        
+        .name-display {
+            font-size: 4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <div class="max-w-4xl w-full bg-white bg-opacity-95 rounded-3xl shadow-2xl p-6 md:p-10 text-center relative overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
+        <!-- Ribbon effect -->
+        <div class="absolute -right-8 -top-2 w-32 h-12 bg-pink-500 rotate-45 flex justify-end items-start pr-2 pt-1 shadow-md">
+            <span class="text-white font-bold text-xs">ENGAGED!</span>
+        </div>
+        
+        <div class="relative z-0">
+            <!-- Sparkles background -->
+            <div class="absolute inset-0 overflow-hidden opacity-10">
+                <div class="absolute top-0 left-1/4 text-4xl animate-pulse text-pink-200">✨</div>
+                <div class="absolute top-1/3 right-1/5 text-5xl animate-pulse text-pink-200">✨</div>
+                <div class="absolute bottom-1/4 left-1/5 text-3xl animate-pulse text-pink-200">✨</div>
+            </div>
+            
+            <div class="relative z-10">
+                <h1 class="text-4xl md:text-6xl font-bold text-gradient bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-2 dancing-text">
+                    Mervat & Ahmed
+                </h1>
+                
+                <div class="flex justify-center items-center mb-6">
+                    <div class="w-16 h-1 bg-gradient-to-r from-pink-200 to-pink-400 rounded-full"></div>
+                    <span class="mx-4 text-sm font-medium text-pink-400">💍</span>
+                    <div class="w-16 h-1 bg-gradient-to-r from-pink-400 to-pink-200 rounded-full"></div>
+                </div>
+                
+                <p class="text-lg md:text-xl text-gray-600 mb-8">
+                    Celebrate with us the engagement of my dear sister 🫶🫶🫶
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center justify-center my-8">
+                    <!-- Bride Card -->
+                    <div id="bride" class="relative group cursor-pointer transform transition-all duration-500 hover:scale-105">
+                        <div class="relative photo-frame w-48 h-48 mx-auto mb-4 bg-gradient-to-br from-pink-100 to-purple-100 border-4 border-white shadow-lg overflow-hidden flex items-center justify-center">
+                            <div class="name-display text-pink-500 dancing-text">Mervat</div>
+                            <div class="absolute inset-0 bg-pink-500 opacity-0 group-hover:opacity-20 transition-all duration-300"></div>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-pink-600 mb-1"></h2>
+                        <div class="flex justify-center space-x-1">
+                            <span class="text-sm text-gray-500">🔅The Radiant Bride🔅</span>
+                            <span class="text-pink-400">👰</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Couple Ring Animation -->
+                    <div class="hidden md:flex items-center justify-center -my-4">
+                        <div class="ring-spin text-6xl text-gray-300 relative">
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-pink-500 text-2xl">
+                                💕
+                            </div>
+                            💍
+                        </div>
+                    </div>
+                    
+                    <!-- Groom Card -->
+                    <div id="groom" class="relative group cursor-pointer transform transition-all duration-500 hover:scale-105">
+                        <div class="relative photo-frame w-48 h-48 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-teal-100 border-4 border-white shadow-lg overflow-hidden flex items-center justify-center">
+                            <div class="name-display text-blue-500 dancing-text">Ahmed</div>
+                            <div class="absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-20 transition-all duration-300"></div>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-blue-600 mb-1"></h2>
+                        <div class="flex justify-center space-x-1">
+                            <span class="text-sm text-gray-500">🪄The Charming Groom🪄</span>
+                            <span class="text-blue-400">🤵</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200 shadow-inner relative overflow-hidden">
+                    <div class="absolute -top-4 -right-4 text-5xl opacity-10 text-pink-300">❣️</div>
+                    <p class="text-xl md:text-2xl dancing-text text-pink-800 mb-3">
+                        "Two souls, one heart"
+                    </p>
+                    <p class="text-gray-700 max-w-2xl mx-auto">
+                        🎉 مبارك الخطوبة! 🎉
+
+بأسمى آيات الفرح والبهاء، أهنئكم بمناسبة الخطوبة المباركة! 💍✨
+هذه البداية الجميلة لرحلة حب ممتدة، مليئة بالتفاهم والسعادة، فلتكن حياتكما معًا كالوردة، يتهادى عبيرها ويعلو جمالها يومًا بعد يوم.
+
+رزقكما الله تعالى كل الخير، وجعل هذه الخطوة بدايةً لزواجٍ مباركٍ، يعمُّه الحب والرضا، وتظلِّلُه المودة والرحمة. 🤍
+
+🎊 ألف مبروك.. ودمتي في خير ونعمة الله وحفظه!
+                    </p>
+                    
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <button id="love-btn" class="px-5 py-2 bg-pink-500 text-white rounded-full shadow-md hover:bg-pink-600 transition-colors flex items-center">
+                            <i class="fas fa-heart mr-2"></i> Send Love
+                        </button>
+                        <button class="px-5 py-2 bg-purple-500 text-white rounded-full shadow-md hover:bg-purple-600 transition-colors flex items-center">
+                            <i class="fas fa-glass-cheers mr-2"></i> Cheers!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-6 text-center text-gray-700">
+        <p class="text-sm md:text-base bg-white bg-opacity-70 rounded-full px-4 py-1 inline-block shadow">
+          ♥️🎈 ربنا يتمم لك على خير ي اختي
+        </p>
+    </div>
+    
+    <!-- Hearts container for animation -->
+    <div id="hearts-container" class="hearts-container"></div>
+    
+    <script>
+        const emojis = ['💕', '💖', '💘', '💓', '💗', '💝', '💞', '💟', '❣️', '💌'];
+        const decorations = ['✨', '🌸', '🎀', '💫', '⭐', '🌹', '💐', '🌷', '🍓', '🦋'];
+        
+        function createFallingEmoji(emojiPool, className, fast = false) {
+            const emoji = document.createElement('div');
+            emoji.className = className;
+            emoji.textContent = emojiPool[Math.floor(Math.random() * emojiPool.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            
+            // Animation modifiers
+            const duration = fast ? (Math.random() + 1) : (Math.random() * 2 + 3); 
+            const size = fast ? (Math.random() * 10 + 20) : (Math.random() * 20 + 16);
+            
+            emoji.style.animationDuration = duration + 's';
+            emoji.style.fontSize = size + 'px';
+            emoji.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            if (fast) {
+                emoji.style.filter = 'hue-rotate(-30deg)';
+            }
+            
+            document.body.appendChild(emoji);
+            
+            setTimeout(() => {
+                emoji.remove();
+            }, 6000);
+        }
+
+        function createDecoration() {
+            const deco = document.createElement('div');
+            deco.className = 'falling-decoration';
+            deco.textContent = decorations[Math.floor(Math.random() * decorations.length)];
+            deco.style.left = Math.random() * 100 + 'vw';
+            deco.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            deco.style.fontSize = (Math.random() * 20 + 16) + 'px';
+            deco.style.opacity = Math.random() * 0.5 + 0.3;
+            document.body.appendChild(deco);
+            
+            setTimeout(() => {
+                deco.remove();
+            }, 5000);
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+        
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Position emoji randomly on screen
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = '100vh';
+            
+            // Random direction
+            emoji.style.setProperty('--tx', (Math.random() * 2 - 1) * 0.1);
+            emoji.style.setProperty('--ty', -(Math.random() * 0.5 + 0.5));
+            
+            // Random animation duration
+            emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            emoji.style.fontSize = (Math.random() * 24 + 16) + 'px';
+            
+            document.body.appendChild(emoji);
+            
+            // Remove emoji after animation completes
+            setTimeout(() => {
+                emoji.remove();
+            }, 5000);
+        }
+        
+        // Romantic emojis for Mervat
+        const romanticEmojis = ['💕', '🌹', '💞', '🌷', '💐', '🍓', '🦋'];
+        
+        // Fire emojis for Ahmed
+        const fireEmojis = ['🔥', '✨', '💥', '⭐', '🌟', '☄️', '⚡'];
+        
+        // Event listeners
+        document.getElementById('bride').addEventListener('click', function() {
+            // Create floating romantic emojis
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createFallingEmoji(romanticEmojis, 'falling-decoration');
+                }, i * 150);
+            }
+            
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 1000);
+        });
+        
+        document.getElementById('groom').addEventListener('click', function() {
+            // Create floating fire emojis
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createFallingEmoji(fireEmojis, 'falling-decoration', true);
+                }, i * 150);
+            }
+            
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 1000);
+        });
+        
+        document.getElementById('love-btn').addEventListener('click', function() {
+            // Start falling decorations
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createDecoration();
+                    if (i % 3 === 0) createHeart();
+                }, i * 100);
+            }
+            
+            // Create floating emojis
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createEmoji();
+                }, i * 150);
+            }
+            
+            // Bounce animation on button
+            this.classList.add('animate-bounce');
+            setTimeout(() => {
+                this.classList.remove('animate-bounce');
+            }, 1000);
+        });
+        
+        // Create some decorations on page load
+        window.addEventListener('load', () => {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    createDecoration();
+                }, i * 300);
+            }
+        });
+    </script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        dancing: ['Dancing Script', 'cursive']
+                    },
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
+                        'heartbeat': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'bounce 3s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+  </html>
